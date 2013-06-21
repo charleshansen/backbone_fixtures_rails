@@ -41,10 +41,12 @@ beforeEach(function() {
 
 The arguments are as follows:
 
-* `models`: An object containing models that correspond to fixture files, e.g. `models = { User: userModel, Database: databaseModel, ... }`.
-* `collections`: An object containing collections, just like the `models` object.
-* `baseModel`: The default model to use if a fixture cannot find something appropriate in the `models` object.  A natural choice is `Backbone.Model`.
-* `baseCollection`:  The default collection to use if a fixture cannot find something appropriate in the `collections` object.  A natural choice is `Backbone.Collection`.
+| Argument         | Description   |
+| ---------------- |:------------- |
+| `models`         | An object containing models that correspond to fixture files, e.g. `models = { User: userModel, Database: databaseModel, ... }` |
+| `collections`    | An object containing collections, just like the `models` object.      |
+| `baseModel`      | The default model to use if a fixture cannot find something appropriate in the `models` object.  A natural choice is `Backbone.Model`.  |
+| `baseCollection` | The default collection to use if a fixture cannot find something appropriate in the `collections` object.  A natural choice is `Backbone.Collection`.     |
 
 
 ## Usage
