@@ -1,4 +1,4 @@
-module BackboneRailsFixtures
+module BackboneFixturesRails
   module Generators
     class InstallGenerator < Rails::Generators::Base
       # Add stuff to jasmine.yml
