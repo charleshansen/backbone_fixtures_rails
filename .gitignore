@@ -3,3 +3,5 @@ Gemfile.lock
 *.iml
 
 public/javascripts/vendor/
+
+pkg/
