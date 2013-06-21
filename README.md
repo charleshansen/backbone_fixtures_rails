@@ -83,7 +83,11 @@ describe UsersController do
 end
 ```
 
-When you run these specs, json files will be generated that jasmine can now use.
+When you run these specs, json files will be generated that jasmine can now use. You can also generate them by running:
+
+``` sh
+rake backbone_fixtures
+```
 
 ### Fixture Definitions
 
