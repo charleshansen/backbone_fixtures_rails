@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
+require_relative 'lib/backbone_fixtures_rails/version'
+
 Gem::Specification.new do |s|
   s.name        = "backbone_fixtures_rails"
-  s.version     = "0.0.1"
+  s.version     = BackboneFixturesRails::VERSION
   s.authors     = ["Chorus"]
   s.summary     = "Create Backbone fixtures from Rails controllers"
   s.description = "Create Backbone fixtures from Rails controllers"
