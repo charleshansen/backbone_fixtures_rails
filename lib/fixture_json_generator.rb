@@ -12,7 +12,7 @@ class RSpec::Core::ExampleGroup
   end
 
   def save_fixture(filename, content = JSON.parse(response.body))
-    path = Rails.root + "spec/javascripts/fixtures/rspec/" + filename
+    path = Rails.root + "spec/javascripts/fixtures/backbone/" + filename
     path.dirname.mkpath unless path.dirname.directory?
 
     File.open(path, 'w') do |f|

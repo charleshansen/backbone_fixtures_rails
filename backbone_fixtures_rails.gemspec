@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
-  s.name        = "backbone_rails_fixtures"
+  s.name        = "backbone_fixtures_rails"
   s.version     = "0.0.1"
   s.authors     = ["Chorus"]
   s.summary     = "Create Backbone fixtures from Rails controllers"

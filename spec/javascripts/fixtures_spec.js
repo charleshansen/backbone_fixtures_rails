@@ -1,4 +1,4 @@
-describe("rspecFixtures", function() {
+describe("backboneFixtures", function() {
     describe("nested fixture definitions", function() {
         var definition, model;
 
@@ -15,8 +15,8 @@ describe("rspecFixtures", function() {
         });
 
         it("gets the right data", function() {
-            model = rspecFixtures.test.withOverrides();
-            var fixtureScript = $("#fixtures [data-fixture-path='rspec/test/withOverrides']");
+            model = backboneFixtures.test.withOverrides();
+            var fixtureScript = $("#fixtures [data-fixture-path='backbone/test/withOverrides']");
             console.log(fixtureScript.html());
             var fixtureJson = JSON.parse(fixtureScript.html());
             expect(model.get("first_name")).toBeDefined();
@@ -24,13 +24,13 @@ describe("rspecFixtures", function() {
         });
 
         it("caches the json data in a nested structure", function() {
-            model = rspecFixtures.test.withOverrides();
-            expect(window.rspecFixtures.parsedJson.test.withOverrides).toBeDefined();
+            model = backboneFixtures.test.withOverrides();
+            expect(window.backboneFixtures.parsedJson.test.withOverrides).toBeDefined();
         });
 
         describe("when the nested definition overrides the parent definition", function() {
             it("uses the values in the nested definition", function() {
-                model = rspecFixtures.test.withOverrides();
+                model = backboneFixtures.test.withOverrides();
                 expect(definition.children.withOverrides.model).toBe("Workspace");
                 expect(model instanceof models.Workspace).toBe(true);
             });
@@ -38,7 +38,7 @@ describe("rspecFixtures", function() {
 
         describe("when the nested definition does not override the parent definition", function() {
             it("uses the values in the parent definition", function() {
-                model = rspecFixtures.test.noOverrides();
+                model = backboneFixtures.test.noOverrides();
                 expect(definition.model).toBe("User");
                 expect(model instanceof models.User).toBe(true);
             });
@@ -49,36 +49,36 @@ describe("rspecFixtures", function() {
         var user;
 
         beforeEach(function() {
-            user = rspecFixtures.user();
+            user = backboneFixtures.user();
         });
 
         it("includes the user fixture data", function() {
-            expect(window.rspecFixtures.parsedJson.user).toBeDefined();
-            expect(window.rspecFixtures.parsedJson.user.username).toBeDefined();
-            expect(user.get("username")).toBe(window.rspecFixtures.parsedJson.user.username);
+            expect(window.backboneFixtures.parsedJson.user).toBeDefined();
+            expect(window.backboneFixtures.parsedJson.user.username).toBeDefined();
+            expect(user.get("username")).toBe(window.backboneFixtures.parsedJson.user.username);
         });
 
         it("allows for overrides", function() {
-            user = rspecFixtures.user({username: "Foo Bar"});
+            user = backboneFixtures.user({username: "Foo Bar"});
             expect(user.get("username")).toBe("Foo Bar");
         });
 
         it("allows camel-case attribute names for overrides", function() {
-            user = rspecFixtures.user({ first_name: "Foo" });
+            user = backboneFixtures.user({ first_name: "Foo" });
             expect(user.get("first_name")).toBe("Foo");
         });
 
         it("does not allow overrides for non-existant attributes", function() {
-            expect(function() { rspecFixtures.user({ foo: "Bar" }); }).toThrow();
+            expect(function() { backboneFixtures.user({ foo: "Bar" }); }).toThrow();
         });
 
         it("gives each user a unique id", function() {
-            var user2 = rspecFixtures.user();
+            var user2 = backboneFixtures.user();
             expect(user2.get("id")).not.toEqual(user.get("id"));
         });
 
         it("uses the override id, if one is specified", function() {
-            var user2 = rspecFixtures.user({ id: '501' });
+            var user2 = backboneFixtures.user({ id: '501' });
             expect(user2.get("id")).toBe("501");
         });
     });
@@ -88,23 +88,23 @@ describe("rspecFixtures", function() {
 
         describe("when no overrides are passed", function() {
             beforeEach(function() {
-                userJson = rspecFixtures.userJson();
+                userJson = backboneFixtures.userJson();
             });
 
             it("returns the user fixture data", function() {
-                expect(window.rspecFixtures.parsedJson.user).toBeDefined();
-                expect(window.rspecFixtures.parsedJson.user.first_name).toBeDefined();
-                expect(userJson.first_name).toBe(window.rspecFixtures.parsedJson.user.first_name);
+                expect(window.backboneFixtures.parsedJson.user).toBeDefined();
+                expect(window.backboneFixtures.parsedJson.user.first_name).toBeDefined();
+                expect(userJson.first_name).toBe(window.backboneFixtures.parsedJson.user.first_name);
             });
 
             it("clones the user fixture data", function() {
-                expect(userJson).not.toBe(window.rspecFixtures.parsedJson.user);
+                expect(userJson).not.toBe(window.backboneFixtures.parsedJson.user);
             });
         });
 
         describe("when overrides are passed", function() {
             beforeEach(function() {
-                userJson = rspecFixtures.userJson({ first_name: "vini" });
+                userJson = backboneFixtures.userJson({ first_name: "vini" });
             });
 
             it("uses the overridden parameters", function() {
@@ -117,7 +117,7 @@ describe("rspecFixtures", function() {
         var userSet;
 
         beforeEach(function() {
-            userSet = rspecFixtures.userSet();
+            userSet = backboneFixtures.userSet();
         });
 
         it("should create a UserSet collection", function() {
@@ -125,25 +125,25 @@ describe("rspecFixtures", function() {
         });
 
         it("sets attributes of the models based on the fixture data", function() {
-            var data = window.rspecFixtures.parsedJson.userSet[0];
+            var data = window.backboneFixtures.parsedJson.userSet[0];
             expect(data).toBeDefined();
             expect(data.username).toBeDefined();
             expect(userSet.at(0).get("username")).toBe(data.username);
         });
 
         it("allows for overrides", function() {
-            userSet = rspecFixtures.userSet([ { username: "Foo Bar" } ]);
+            userSet = backboneFixtures.userSet([ { username: "Foo Bar" } ]);
             expect(userSet.at(0).get("username")).toBe("Foo Bar");
         });
 
         it("does not allow overrides for non-existant attributes", function() {
             expect(function() {
-                rspecFixtures.userSet([ { foo: "Bar" } ]);
+                backboneFixtures.userSet([ { foo: "Bar" } ]);
             }).toThrow();
         });
 
         it("gives each user a unique id", function() {
-            var userSet2 = rspecFixtures.userSet();
+            var userSet2 = backboneFixtures.userSet();
             var ids = [
                 userSet.at(0).id,
                 userSet.at(1).id,
@@ -154,7 +154,7 @@ describe("rspecFixtures", function() {
         });
 
         it("uses the override id, if one is specified", function() {
-            var userSet2 = rspecFixtures.userSet([ { id: '501' } ]);
+            var userSet2 = backboneFixtures.userSet([ { id: '501' } ]);
             expect(userSet2.at(0).get("id")).toBe("501");
         });
     });
@@ -178,7 +178,7 @@ describe("rspecFixtures", function() {
                         }
                     };
 
-                    rspecFixtures.addUniqueDefaults(attributes1, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
+                    backboneFixtures.addUniqueDefaults(attributes1, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
                 });
 
                 it("does not change the properties (even if they are null)", function() {
@@ -213,8 +213,8 @@ describe("rspecFixtures", function() {
                     attributes2.workspace = _.clone(attributes1.workspace);
                     attributes2.workspace.sandbox = _.clone(attributes1.workspace.sandbox);
 
-                    rspecFixtures.addUniqueDefaults(attributes1, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
-                    rspecFixtures.addUniqueDefaults(attributes2, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
+                    backboneFixtures.addUniqueDefaults(attributes1, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
+                    backboneFixtures.addUniqueDefaults(attributes2, [ "id", "workspace.workspaceId", "workspace.sandbox.sandboxId" ]);
                 });
 
                 it("gives the object unique values for those attributes", function() {
@@ -235,8 +235,8 @@ describe("rspecFixtures", function() {
                 it("creates the nested object and the unique id inside of it", function() {
                     attributes1 = { name: "foo" };
                     attributes2 = { name: "foo" };
-                    rspecFixtures.addUniqueDefaults(attributes1, [ "workspace.sandbox.id" ]);
-                    rspecFixtures.addUniqueDefaults(attributes2, [ "workspace.sandbox.id" ]);
+                    backboneFixtures.addUniqueDefaults(attributes1, [ "workspace.sandbox.id" ]);
+                    backboneFixtures.addUniqueDefaults(attributes2, [ "workspace.sandbox.id" ]);
                     expect(attributes1.workspace.sandbox.id).not.toEqual(attributes2.workspace.sandbox.id);
                 });
             });
@@ -265,8 +265,8 @@ describe("rspecFixtures", function() {
             });
 
             it("it adds the unique attribute values to each object in the array", function() {
-                rspecFixtures.addUniqueDefaults(attrArray1, [ "id", "workspace.id" ]);
-                rspecFixtures.addUniqueDefaults(attrArray2, [ "id", "workspace.id" ]);
+                backboneFixtures.addUniqueDefaults(attrArray1, [ "id", "workspace.id" ]);
+                backboneFixtures.addUniqueDefaults(attrArray2, [ "id", "workspace.id" ]);
 
                 var ids = [
                     attrArray1[0].id,
@@ -311,14 +311,14 @@ describe("rspecFixtures", function() {
 
         describe("when no overrides are specified", function() {
             it("returns the original", function() {
-                var result = rspecFixtures.safeExtend(original, undefined);
+                var result = backboneFixtures.safeExtend(original, undefined);
                 expect(result).toEqual(original);
             });
         });
 
         describe("when a property is overriden", function() {
             beforeEach(function() {
-                result = rspecFixtures.safeExtend(original, { foo: "pizza" });
+                result = backboneFixtures.safeExtend(original, { foo: "pizza" });
             });
 
             it("uses the override", function() {
@@ -332,7 +332,7 @@ describe("rspecFixtures", function() {
             describe("when the overrides contain a key that is not present in the original object", function() {
                 it("throws an exception containing the specified name", function() {
                     expect(function() {
-                        rspecFixtures.safeExtend(original, { whippedCream: "lots" }, "user");
+                        backboneFixtures.safeExtend(original, { whippedCream: "lots" }, "user");
                     }).toThrow("The fixture 'user' has no key 'whippedCream'");
                 });
             });
@@ -340,7 +340,7 @@ describe("rspecFixtures", function() {
 
         describe("when overriding a key in a nested object", function() {
             beforeEach(function() {
-                result = rspecFixtures.safeExtend(original, {
+                result = backboneFixtures.safeExtend(original, {
                     nestedObject: {
                         name: "pizza"
                     }
@@ -365,7 +365,7 @@ describe("rspecFixtures", function() {
             describe("when the overrides contain a key that is not present in the nested object", function() {
                 it("throws an exception containing the specified name", function() {
                     expect(function() {
-                        rspecFixtures.safeExtend(original, { nestedObject: { hamburger: "double" }}, "user");
+                        backboneFixtures.safeExtend(original, { nestedObject: { hamburger: "double" }}, "user");
                     }).toThrow("The fixture 'user.nestedObject' has no key 'hamburger'");
                 });
             });
@@ -376,7 +376,7 @@ describe("rspecFixtures", function() {
 
         describe("when overriding a value in a nested array", function() {
             beforeEach(function() {
-                result = rspecFixtures.safeExtend(original, {
+                result = backboneFixtures.safeExtend(original, {
                     nestedStringArray: [
                         "Pivotal", "Labs", "Is", "Awesome"
                     ]
@@ -391,7 +391,7 @@ describe("rspecFixtures", function() {
         describe("when overriding an object in a nested array", function() {
             describe("when the override array is shorter than the original array", function() {
                 beforeEach(function() {
-                    result = rspecFixtures.safeExtend(original, {
+                    result = backboneFixtures.safeExtend(original, {
                         nestedObjectArray: [
                             { name: "bazillionaire" }
                         ]
@@ -413,7 +413,7 @@ describe("rspecFixtures", function() {
 
             describe("when the override array is longer than the original array", function() {
                 beforeEach(function() {
-                    result = rspecFixtures.safeExtend(original, {
+                    result = backboneFixtures.safeExtend(original, {
                         nestedObjectArray: [
                             { name: "bazillionaire" },
                             { name: "gajillionaire" },

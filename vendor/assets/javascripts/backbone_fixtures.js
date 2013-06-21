@@ -163,14 +163,14 @@ BackboneFixtures.initialize = function(models, collections, baseModel, baseColle
         });
     }
 
-    window.rspecFixtures = {
+    window.backboneFixtures = {
         definitions: window.BackboneFixtureDefinitions,
         parsedJson: {},
-        rawJsonPathPrefix: "rspec"
+        rawJsonPathPrefix: "backbone"
     };
 
-    window.rspecFixtures.safeExtend = safeExtend;
-    window.rspecFixtures.addUniqueDefaults = addUniqueDefaults;
+    window.backboneFixtures.safeExtend = safeExtend;
+    window.backboneFixtures.addUniqueDefaults = addUniqueDefaults;
 
-    defineAllFixtures(window.rspecFixtures);
+    defineAllFixtures(window.backboneFixtures);
 };
