@@ -134,13 +134,13 @@ describe("user spec", function() {
 });
 ```
 
-Note that if you pass an attribute to the fixture function that does not exist in the json file, you will get an error. For example, if you try:
+Note that if you pass an attribute to the fixture function that does not exist in the json file, you will get an error. For example:
 
 ``` js
 describe("another spec", function() {
     it("throws an error", function() {
+        // The line below will fail with this error: "The fixture 'user' has no key 'nonExistentKey'".
         var user = backboneFixtures.user({nonExistentKey: "value"});
-        // You will get "The fixture 'user' has no key 'nonExistentKey'" error.
     });
 });
 ```
