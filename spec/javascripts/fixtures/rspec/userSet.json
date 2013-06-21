@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "first_name": "Alice",
+        "username": "wonderland"
+    },
+
+    {
+        "id": "18",
+        "first_name": "Bob",
+        "username": "bobbie"
+    },
+    {
+        "id": "13",
+        "first_name": "Charlie",
+        "username": "sonicboom"
+    }
+]
