@@ -1,6 +1,6 @@
 module BackboneFixturesRails
   module Generators
-    class InstallGenerator < Rails::Generators::Base
+    class InstallGenerator < ::Rails::Generators::Base
       # Add stuff to jasmine.yml
 
       source_root File.expand_path("../templates", __FILE__)
