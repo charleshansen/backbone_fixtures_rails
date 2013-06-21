@@ -1,3 +1,5 @@
 Gemfile.lock
 .idea/
 *.iml
+
+public/javascripts/vendor/
