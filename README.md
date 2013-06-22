@@ -7,7 +7,7 @@ This library is for creating fixtures for Backbone models and collections that a
 Include gem in your `Gemfile`
 
 ``` ruby
-gem 'backbone_fixtures_rails', :github => "pivotal-chorus/backbone_fixtures_rails"
+gem 'backbone_fixtures_rails', :github => 'charleshansen/backbone_fixtures_rails'
 ```
 
 Run the generator
