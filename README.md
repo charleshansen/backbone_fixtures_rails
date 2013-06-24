@@ -49,6 +49,11 @@ The arguments are as follows:
 | `baseCollection` | The default collection to use if a fixture cannot find something appropriate in the `collections` object.  A natural choice is `Backbone.Collection`.     |
 
 
+### Depenendcies
+
+Backbone fixtures requires jQuery, underscore, and Backbone (or at least something with models and collections like Backbone).
+You need to require jQuery and underscore before requiring backbone_fixtures.js.
+
 ## Usage
 
 ### Generate Fixtures
