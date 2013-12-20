@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.files        = `git ls-files`.split("\n")
   s.license      = 'MIT'
   s.require_path = 'lib'
-  s.add_dependency "railties", "~> 3.1"
+  s.add_dependency "railties", ">= 3.1"
   s.add_dependency "rspec"
   s.add_dependency "jasmine"
 end
