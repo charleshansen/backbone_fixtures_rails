@@ -118,7 +118,7 @@
                 } else if (definition.collection) {
                     return collections[definition.collection];
                 } else {
-                    var isCollection = name.match(/Set/);
+                    var isCollection = name.match(/(Set)|(Collection)/);
                     var className = name.replace(/(?:^|\s)\S/g, function(ch){ return ch.toUpperCase(); }); //titleize
                     return (isCollection ? collections[className] : models[className]) || baseModel;
                 }
