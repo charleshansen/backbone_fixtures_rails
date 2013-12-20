@@ -48,6 +48,7 @@ The arguments are as follows:
 | `baseModel`      | The default model to use if a fixture cannot find something appropriate in the `models` object.  A natural choice is `Backbone.Model`.  |
 | `baseCollection` | The default collection to use if a fixture cannot find something appropriate in the `collections` object.  A natural choice is `Backbone.Collection`.     |
 
+The call to jasmineSetup does not have to be in the beforeEach, it also works at the top of the spec file.  If you are stubbing out ajax requests, make sure you call jasmineSetup before this stubbing happens.
 
 ### Depenendcies
 
