@@ -11,33 +11,20 @@
     BackboneFixtures = {};
 
     BackboneFixtures.jasmineSetup = _.once(function(models, collections, baseModel, baseCollection) {
-        var allFixturesLoaded = false;
-
-        function loadAllFixtures() {
-            var fixtureContainer = $("<div id='fixtures'/>");
-            $("body").append(fixtureContainer);
-            return $.ajax({
-                async: true,
-                cache: false,
-                dataType: 'html',
-                url: '/__fixtures',
-                success: function(data) {
-                    fixtureContainer.append(data);
-                    allFixturesLoaded = true;
-                },
-                error: function(data) {
-                    window.alert("Sorry but I couldn't load the fixtures! Things will go REALLY poorly from here...");
-                    allFixturesLoaded = true;
-                }
-            });
-        }
-
-        runs(loadAllFixtures);
-        waitsFor(function() {
-            return allFixturesLoaded;
-        }, "all templates and fixtures to be loaded", 5000);
-
-        BackboneFixtures.initialize(models, collections, baseModel, baseCollection);
+        window.fixtureContainer = $("<div id='fixtures'/>");
+        return $.ajax({
+            async: false,
+            cache: false,
+            dataType: 'html',
+            url: '/__fixtures',
+            success: function(data) {
+                fixtureContainer.append(data);
+                BackboneFixtures.initialize(models, collections, baseModel, baseCollection);
+            },
+            error: function(data) {
+                window.alert("Sorry but I couldn't load the fixtures! Things will go REALLY poorly from here...");
+            }
+        });
     });
 
     BackboneFixtures.initialize = function(models, collections, baseModel, baseCollection) {
@@ -110,7 +97,7 @@
                 }
                 if (!parsedJson[name]) {
                     var path = _.compact([fixtureModule.rawJsonPathPrefix, parentName, name]).join("/");
-                    var $element = $("#fixtures [data-fixture-path='" + path + "']");
+                    var $element = window.fixtureContainer.find("[data-fixture-path='" + path + "']");
                     if (!$element.length) throw "No fixture for " + path;
                     parsedJson[name] = JSON.parse($element.html());
                 }
