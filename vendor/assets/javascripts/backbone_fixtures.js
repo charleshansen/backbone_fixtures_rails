@@ -130,16 +130,17 @@
                 var jsonMethodName = name + "Json";
 
                 module[name] = function(overrides) {
-                    var model = new klass();
-                    var populatedModel = model.parse(saveParsedJson(name, parentName));
+                    var modelOrCollection = new klass();
+                    var populatedModel = modelOrCollection.parse(saveParsedJson(name, parentName));
                     overrides || (overrides = defaultOverridesFor(populatedModel));
                     addUniqueDefaults(overrides, definition.unique);
 
                     var attrs = safeExtend(populatedModel, overrides, name);
                     addDerivedAttributes(attrs, overrides, definition.derived);
 
-                    var setMethod = (model instanceof baseCollection) ? "reset" : "set";
-                    return model[setMethod](attrs, { silent: true });
+                    var setMethod = (modelOrCollection instanceof baseCollection) ? "reset" : "set";
+                    modelOrCollection[setMethod](attrs, { silent: true });
+                    return modelOrCollection;
                 };
 
                 module[jsonMethodName] = function(overrides) {

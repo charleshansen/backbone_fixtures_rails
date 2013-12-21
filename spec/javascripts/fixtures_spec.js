@@ -16,8 +16,7 @@ describe("backboneFixtures", function() {
 
         it("gets the right data", function() {
             model = backboneFixtures.test.withOverrides();
-            var fixtureScript = $("#fixtures [data-fixture-path='backbone/test/withOverrides']");
-            console.log(fixtureScript.html());
+            var fixtureScript = fixtureContainer.find("[data-fixture-path='backbone/test/withOverrides']");
             var fixtureJson = JSON.parse(fixtureScript.html());
             expect(model.get("first_name")).toBeDefined();
             expect(model.get("first_name")).toBe(fixtureJson.first_name);
