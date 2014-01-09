@@ -332,7 +332,7 @@ describe("backboneFixtures", function() {
                 it("throws an exception containing the specified name", function() {
                     expect(function() {
                         backboneFixtures.safeExtend(original, { whippedCream: "lots" }, "user");
-                    }).toThrow("The fixture 'user' has no key 'whippedCream'");
+                    }).toThrow(new Error("The fixture 'user' has no key 'whippedCream'"));
                 });
             });
         });
@@ -365,7 +365,7 @@ describe("backboneFixtures", function() {
                 it("throws an exception containing the specified name", function() {
                     expect(function() {
                         backboneFixtures.safeExtend(original, { nestedObject: { hamburger: "double" }}, "user");
-                    }).toThrow("The fixture 'user.nestedObject' has no key 'hamburger'");
+                    }).toThrow(new Error("The fixture 'user.nestedObject' has no key 'hamburger'"));
                 });
             });
 

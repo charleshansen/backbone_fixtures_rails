@@ -1,11 +1,11 @@
 (function(){
 
     if (typeof jQuery === 'undefined') {
-        throw("jQuery not detected - Backbone Fixtures requires jQuery");
+        throw new Error("jQuery not detected - Backbone Fixtures requires jQuery");
     }
 
     if (typeof _ === 'undefined') {
-        throw("underscore not detected - Backbone Fixtures requires underscore");
+        throw new Error("underscore not detected - Backbone Fixtures requires underscore");
     }
 
     BackboneFixtures = {};
@@ -58,7 +58,7 @@
                         result[key] = value;
                         return;
                     } else {
-                        throw "The fixture '" + name + "' has no key '" + key + "'";
+                        throw new Error("The fixture '" + name + "' has no key '" + key + "'");
                     }
                 }
 
@@ -98,7 +98,7 @@
                 if (!parsedJson[name]) {
                     var path = _.compact([fixtureModule.rawJsonPathPrefix, parentName, name]).join("/");
                     var $element = window.fixtureContainer.find("[data-fixture-path='" + path + "']");
-                    if (!$element.length) throw "No fixture for " + path;
+                    if (!$element.length) throw new Error("No fixture for " + path);
                     parsedJson[name] = JSON.parse($element.html());
                 }
                 return parsedJson[name];
