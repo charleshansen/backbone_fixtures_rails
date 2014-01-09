@@ -11,33 +11,20 @@
     BackboneFixtures = {};
 
     BackboneFixtures.jasmineSetup = _.once(function(models, collections, baseModel, baseCollection) {
-        var allFixturesLoaded = false;
-
-        function loadAllFixtures() {
-            var fixtureContainer = $("<div id='fixtures'/>");
-            $("body").append(fixtureContainer);
-            return $.ajax({
-                async: true,
-                cache: false,
-                dataType: 'html',
-                url: '/__fixtures',
-                success: function(data) {
-                    fixtureContainer.append(data);
-                    allFixturesLoaded = true;
-                },
-                error: function(data) {
-                    window.alert("Sorry but I couldn't load the fixtures! Things will go REALLY poorly from here...");
-                    allFixturesLoaded = true;
-                }
-            });
-        }
-
-        runs(loadAllFixtures);
-        waitsFor(function() {
-            return allFixturesLoaded;
-        }, "all templates and fixtures to be loaded", 5000);
-
-        BackboneFixtures.initialize(models, collections, baseModel, baseCollection);
+        window.fixtureContainer = $("<div id='fixtures'/>");
+        return $.ajax({
+            async: false,
+            cache: false,
+            dataType: 'html',
+            url: '/__fixtures',
+            success: function(data) {
+                fixtureContainer.append(data);
+                BackboneFixtures.initialize(models, collections, baseModel, baseCollection);
+            },
+            error: function(data) {
+                window.alert("Sorry but I couldn't load the fixtures! Things will go REALLY poorly from here...");
+            }
+        });
     });
 
     BackboneFixtures.initialize = function(models, collections, baseModel, baseCollection) {
@@ -110,7 +97,7 @@
                 }
                 if (!parsedJson[name]) {
                     var path = _.compact([fixtureModule.rawJsonPathPrefix, parentName, name]).join("/");
-                    var $element = $("#fixtures [data-fixture-path='" + path + "']");
+                    var $element = window.fixtureContainer.find("[data-fixture-path='" + path + "']");
                     if (!$element.length) throw "No fixture for " + path;
                     parsedJson[name] = JSON.parse($element.html());
                 }
@@ -131,7 +118,7 @@
                 } else if (definition.collection) {
                     return collections[definition.collection];
                 } else {
-                    var isCollection = name.match(/Set/);
+                    var isCollection = name.match(/(Set)|(Collection)/);
                     var className = name.replace(/(?:^|\s)\S/g, function(ch){ return ch.toUpperCase(); }); //titleize
                     return (isCollection ? collections[className] : models[className]) || baseModel;
                 }
@@ -143,16 +130,17 @@
                 var jsonMethodName = name + "Json";
 
                 module[name] = function(overrides) {
-                    var model = new klass();
-                    var populatedModel = model.parse(saveParsedJson(name, parentName));
+                    var modelOrCollection = new klass();
+                    var populatedModel = modelOrCollection.parse(saveParsedJson(name, parentName));
                     overrides || (overrides = defaultOverridesFor(populatedModel));
                     addUniqueDefaults(overrides, definition.unique);
 
                     var attrs = safeExtend(populatedModel, overrides, name);
                     addDerivedAttributes(attrs, overrides, definition.derived);
 
-                    var setMethod = (model instanceof baseCollection) ? "reset" : "set";
-                    return model[setMethod](attrs, { silent: true });
+                    var setMethod = (modelOrCollection instanceof baseCollection) ? "reset" : "set";
+                    modelOrCollection[setMethod](attrs, { silent: true });
+                    return modelOrCollection;
                 };
 
                 module[jsonMethodName] = function(overrides) {
