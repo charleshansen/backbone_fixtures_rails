@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require_relative 'lib/backbone_fixtures_rails/version'
+$:.push File.expand_path("../lib", __FILE__)
+require 'backbone_fixtures_rails/version'
 
 Gem::Specification.new do |s|
   s.name        = "backbone_fixtures_rails"
