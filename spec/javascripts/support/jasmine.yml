@@ -11,7 +11,9 @@
 #   - dist/**/*.js
 #
 src_files:
-    - public/javascripts/vendor/underscore.js
+    - ../spec/javascripts/vendor/jquery.js
+    - ../spec/javascripts/vendor/underscore.js
+    - ../spec/javascripts/vendor/backbone.js
     - public/javascripts/**/*.js
     - vendor/assets/javascripts/**/*.js
 
